@@ -1,12 +1,12 @@
 ﻿using System.Data.SqlClient;
 
-namespace FMS.Services.AzueFileUploadAPI.DbContext
+namespace FMS.Services.AzueFileUploadAPI.DBContext
 {
-    public class DbConnection
+    public class DBConnect
     {
         private readonly string connectionString;
 
-        public DbConnection(IConfiguration configuration)
+        public DBConnect(IConfiguration configuration)
         {
             connectionString = configuration.GetValue<string>("ConnectionStrings:DefaultConnection");
         }

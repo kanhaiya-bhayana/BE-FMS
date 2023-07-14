@@ -5,5 +5,7 @@ namespace FMS.Services.AzueFileUploadAPI.Services
     public interface IAzureUploadFileService
     {
         Task<AzureBlobResponseDto> UploadAsync(IFormFile file);
+
+
     }
 }

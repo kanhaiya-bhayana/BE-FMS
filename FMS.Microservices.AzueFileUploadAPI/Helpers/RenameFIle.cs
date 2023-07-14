@@ -1,11 +1,11 @@
 ﻿namespace FMS.Services.AzueFileUploadAPI.Helpers
 {
-    public class RenameFIle : IFormFile
+    public class RenameFile : IFormFile
     {
         private readonly IFormFile _originalFile;
     private readonly string _newFileName;
 
-    public RenameFIle(IFormFile originalFile, string newFileName)
+    public RenameFile(IFormFile originalFile, string newFileName)
     {
         _originalFile = originalFile;
         _newFileName = newFileName;
@@ -37,6 +37,30 @@
     {
         return _originalFile.OpenReadStream();
     }
+
+    /// <summary>
+    /// Creates a new blob file name
+    /// </summary>
+    /// <param name="fileName"></param>
+    /// <param name="newName"></param>
+    /// <returns> string - File name </returns>
+    public static string CreateNewFileName(string fileName, string newName)
+        {
+            try
+            {
+                string fileExtension = Path.GetExtension(fileName);
+                if (!string.IsNullOrEmpty(fileExtension))
+                {
+                    newName = $"{newName}{fileExtension}";
+                    return newName ;
+                }
+                throw new Exception("Error occured while creating new file name...");
+            }
+            catch(Exception ex)
+            {
+                return ex.Message;
+            }
+        }
 }
 }
     

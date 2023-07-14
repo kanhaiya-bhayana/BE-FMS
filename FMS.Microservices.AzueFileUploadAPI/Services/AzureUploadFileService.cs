@@ -29,7 +29,7 @@ namespace FMS.Services.AzueFileUploadAPI.Services
                     await client.UploadAsync(data);
                 }
 
-                response.Status = $"File{blob.FileName} Uploaded Successfully";
+                response.Status = $"File Uploaded Successfully";
                 response.Error = false;
             }
             catch (RequestFailedException ex) when (ex.ErrorCode == BlobErrorCode.BlobAlreadyExists)
@@ -50,5 +50,5 @@ namespace FMS.Services.AzueFileUploadAPI.Services
         }
     }
 }
-    }
-}
+
+
