@@ -76,24 +76,34 @@ namespace FMS.Services.AzueFileUploadAPI.Repository
                             if (newFileName != null)
                             {
                                 uploadFile = new RenameFile(fileManagementDTO.TemplateFile, newFileName);
-                                response1 = _uploadFile.FileUploadAsync(fileManagementDTO.SampleFile).Result;
+                                response1 = _uploadFile.FileUploadAsync(uploadFile).Result;
                             }
 
                             if (!response1.Error)
                             {
-                                response2 = _uploadFile.FileUploadAsync(uploadFile).Result;
-                                if (!response2.Error)
+                                if (fileManagementDTO.SampleFile != null)
                                 {
-                                    transaction.Commit();
-                                    response.Error = false;
-                                    response.Status = response2.Status;
-                                    Console.WriteLine("Transaction Committed");
+                                    response2 = _uploadFile.FileUploadAsync(fileManagementDTO.SampleFile).Result;
+                                    if (!response2.Error)
+                                    {
+                                        transaction.Commit();
+                                        response.Error = false;
+                                        response.Status = response2.Status;
+                                        Console.WriteLine("Transaction Committed");
+                                    }
+                                    else
+                                    {
+                                        response.Error = true;
+                                        response.Status = response2.Status;
+                                        throw new Exception(response.Status);
+                                    }
                                 }
                                 else
                                 {
-                                    response.Error = true;
-                                    response.Status = response2.Status;
-                                    throw new Exception(response.Status);
+                                    transaction.Commit();
+                                    response.Error = false;
+                                    response.Status = response1.Status;
+                                    Console.WriteLine("Transaction Committed");
                                 }
                             }
                             else

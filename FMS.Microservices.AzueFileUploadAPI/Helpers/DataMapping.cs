@@ -8,19 +8,19 @@ namespace FMS.Services.AzueFileUploadAPI.Helpers
         public static FileManagement MapData(FileManagementDTO request)
         {
             FileManagement response = new FileManagement();
-            if (request!=null)
+            if (request != null)
             {
-            response.FileDate = DateTime.Now.ToShortDateString();
-            response.FileName = request.FileName;
-            response.SourcePath = request.SourcePath;
+                response.FileDate = request.FileDate;
+                response.FileName = request.FileName;
+                response.SourcePath = $"00landing{request.SourcePath}";
             response.EmailID = request.EmailID;
             response.Delimiter = request.Delimiter;
-            response.IsActive = "N";
-            response.ClientID = "101";
+            response.IsActive = request.IsActive == "true" ? "Y" : "N";
+                response.ClientID = "101";
             response.FileTypeID = request.FileType;
-            response.InsertionMode = "";
+            response.InsertionMode = request.InsertionMode;
             response.TemplateName = request.TemplateFile.FileName;
-            response.FixedLength = "N";
+                response.FixedLength = request.FixedLength == "true" ? "Y" : "N";
             }
            
             return response;
