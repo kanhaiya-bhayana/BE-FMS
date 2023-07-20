@@ -1,6 +1,8 @@
 using FMS.Services.AzueFileUploadAPI.Helpers;
 using FMS.Services.AzueFileUploadAPI.Repository;
 using FMS.Services.AzueFileUploadAPI.Services;
+using FMS.Services.AzueFileUploadAPI.Services.IService;
+using FMS.Services.AzueFileUploadAPI.Services.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IAzureUploadFileService, AzureUploadFileService>();
 builder.Services.AddScoped<FileUpload>();
 builder.Services.AddScoped<IUploadFile, UploadFile>();
+builder.Services.AddScoped<IDrowpdownOptionsService,DrowpdownOptionsService>();
 
 
 builder.Services.AddControllers();
